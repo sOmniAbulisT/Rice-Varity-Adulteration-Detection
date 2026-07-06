@@ -1,4 +1,4 @@
-raw.data <- read.csv("D:/統計學習/2024SL_train_data.csv")
+raw.data <- read.csv("data/2024SLTrainData.csv")
 str(raw.data[, 2:8])
 summary(raw.data[, 2:8])
 
@@ -17,31 +17,31 @@ v <- cbind(vietnam[,2:7], ratio_t = 0, ratio_v = 1)
 taiwan <- raw.data[which(raw.data$Country == "Taiwan"), ] # 抽取出rawdata中的臺灣樣本
 t <- cbind(taiwan[,2:7], ratio_t = 1, ratio_v = 0)
 
-### 創建混米生成的函式
-mixedsample <- function(data, times){
-  mixed_data <- data.frame() # 創建空的 dataframe 儲存mixeddata
-  for (i in 1:times) {
-    vietnam_sample <- vietnam[sample(1:70, 1), ] #隨機抽取 rawdata 中的越南米
-    taiwan_sample <- taiwan[sample(1:80, 1), ]   #隨機抽取 rawdata 中的臺灣米
-    
-    ratio_t <- sample(1:9, 1)/10 #隨機產生混米中臺灣米的比例
-    ratio_v <- 1-ratio_t #越南米的比例
-    
-    vietnam_values <- as.numeric(vietnam_sample[, 2:6]) 
-    taiwan_values <- as.numeric(taiwan_sample[, 2:6])
-    
-    #計算混米比例
-    mixed_values <- round(vietnam_values * ratio_v + taiwan_values * ratio_t, 3) 
-    
-    mixed_sample <- data.frame(t(mixed_values))
-    
-    #將混米的國家標記為mixed並且將比例的cbind上去
-    mixed_sample <- cbind(mixed_sample, Country = "Mixed", ratio_t, ratio_v)
-    #把純米跟混米資料結合成同一個資料框
-    mixed_data <- rbind(mixed_data, mixed_sample)
-  }
-  return(mixed_data)
-}
+# ### 創建混米生成的函式
+# mixedsample <- function(data, times){
+#   mixed_data <- data.frame() # 創建空的 dataframe 儲存mixeddata
+#   for (i in 1:times) {
+#     vietnam_sample <- vietnam[sample(1:70, 1), ] #隨機抽取 rawdata 中的越南米
+#     taiwan_sample <- taiwan[sample(1:80, 1), ]   #隨機抽取 rawdata 中的臺灣米
+#     
+#     ratio_t <- sample(1:9, 1)/10 #隨機產生混米中臺灣米的比例
+#     ratio_v <- 1-ratio_t #越南米的比例
+#     
+#     vietnam_values <- as.numeric(vietnam_sample[, 2:6]) 
+#     taiwan_values <- as.numeric(taiwan_sample[, 2:6])
+#     
+#     #計算混米比例
+#     mixed_values <- round(vietnam_values * ratio_v + taiwan_values * ratio_t, 3) 
+#     
+#     mixed_sample <- data.frame(t(mixed_values))
+#     
+#     #將混米的國家標記為mixed並且將比例的cbind上去
+#     mixed_sample <- cbind(mixed_sample, Country = "Mixed", ratio_t, ratio_v)
+#     #把純米跟混米資料結合成同一個資料框
+#     mixed_data <- rbind(mixed_data, mixed_sample)
+#   }
+#   return(mixed_data)
+# }
 
 m <- mixedsample(raw.data, 150) #生成150筆混米資料
 data.clean <- rbind(t, v, m) 
