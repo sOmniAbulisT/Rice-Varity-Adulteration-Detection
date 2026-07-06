@@ -23,3 +23,10 @@ Rice-Variety-Adulteration-Detection/
 └── README.md
 ```
 
+## Contributors
+
+This project was co-developed by:
+* **Kun-Hong Liao** ([@sOmniAbulisT](https://github.com/sOmniAbulisT))
+* **Yu-Syuan Wang** ([@SeanYW1999](https://github.com/SeanYW1999))
+
+*This repository contains the refactored and modularized version of our original coursework.*
