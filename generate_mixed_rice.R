@@ -2,13 +2,13 @@ raw.data <- read.csv("data/2024SLTrainData.csv")
 str(raw.data[, 2:8])
 summary(raw.data[, 2:8])
 
-##Accuracy
-cfmaccuracy <- function(matrix){
-  
-  accuracy <- sum(diag(matrix)) / sum(matrix)
-  return(cat("準確率：", accuracy, "\n"))
-  
-}
+# ##Accuracy
+# cfmaccuracy <- function(matrix){
+#   
+#   accuracy <- sum(diag(matrix)) / sum(matrix)
+#   return(cat("準確率：", accuracy, "\n"))
+#   
+# }
 
 #資料清理
 vietnam <- raw.data[which(raw.data$Country == "Vietnam"), ] #抽取出rawdata中的越南樣本
@@ -43,16 +43,16 @@ t <- cbind(taiwan[,2:7], ratio_t = 1, ratio_v = 0)
 #   return(mixed_data)
 # }
 
-m <- mixedsample(raw.data, 150) #生成150筆混米資料
-data.clean <- rbind(t, v, m) 
-rownames(data.clean) <- NULL
-
-train_index <- sample(1:nrow(data.clean), 0.8 * nrow(data.clean)) # 隨機抽建立訓練集編號
-
-train_data <- data.clean[train_index, ]
-test_data <- data.clean[-train_index, ]
-train_data$Country <- as.factor(train_data$Country)
-test_data$Country <- as.factor(test_data$Country)
+# m <- mixedsample(raw.data, 150) #生成150筆混米資料
+# data.clean <- rbind(t, v, m) 
+# rownames(data.clean) <- NULL
+# 
+# train_index <- sample(1:nrow(data.clean), 0.8 * nrow(data.clean)) # 隨機抽建立訓練集編號
+# 
+# train_data <- data.clean[train_index, ]
+# test_data <- data.clean[-train_index, ]
+# train_data$Country <- as.factor(train_data$Country)
+# test_data$Country <- as.factor(test_data$Country)
 
 #############
 #### LDA ####
